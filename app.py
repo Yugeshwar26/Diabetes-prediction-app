@@ -24,17 +24,24 @@ if st.button("Predict Result"):
     # ... (Keep the part where you define input_data) ...
     # Make prediction
     prediction = model.predict(input_data)
-    
-    # Get the single result
     result = prediction[0]
-    
-    # Display the raw result (So you can see what the model is actually saying!)
-    st.write(f"The model predicts: {result}")
 
-    # Check the result safely (Convert to string first to avoid errors)
-    result_str = str(result).lower()
-    
-    if result_str in ['1', 'positive', 'tested_positive', 'true']:
-        st.error("Result: Positive (High chance of Diabetes)")
-    else:
-        st.success("Result: Negative (Low chance of Diabetes)")
+    st.write(f"Raw Prediction: {result}")
+
+    # Logic: Handle both Numbers AND Text safely
+    try:
+        # 1. Try to convert to a number (for 0 vs 1 logic)
+        score = float(result)
+        
+        if score > 0.5:
+            st.error("Result: Positive (High chance of Diabetes)")
+        else:
+            st.success("Result: Negative (Low chance of Diabetes)")
+            
+    except ValueError:
+        # 2. If it's a WORD (like 'tested_positive'), handle it here
+        result_str = str(result).lower()
+        if "pos" in result_str or "1" in result_str:
+             st.error("Result: Positive (High chance of Diabetes)")
+        else:
+             st.success("Result: Negative (Low chance of Diabetes)")
