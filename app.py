@@ -22,17 +22,19 @@ if st.button("Predict Result"):
     prediction = model.predict(input_data)
     
     # ... (Keep the part where you define input_data) ...
-    
+    # Make prediction
     prediction = model.predict(input_data)
-
-    # 1. Convert the result to a decimal number (float) to stop the TypeError
-    result = float(prediction[0])
     
-    # 2. Display the raw value (Optional, but good for checking)
-    st.write(f"Prediction Value: {result}")
+    # Get the single result
+    result = prediction[0]
+    
+    # Display the raw result (So you can see what the model is actually saying!)
+    st.write(f"The model predicts: {result}")
 
-    # 3. Your requested logic: > 0.5 is Positive, < 0.5 is Negative
-    if result > 0.5:
+    # Check the result safely (Convert to string first to avoid errors)
+    result_str = str(result).lower()
+    
+    if result_str in ['1', 'positive', 'tested_positive', 'true']:
         st.error("Result: Positive (High chance of Diabetes)")
     else:
         st.success("Result: Negative (Low chance of Diabetes)")
