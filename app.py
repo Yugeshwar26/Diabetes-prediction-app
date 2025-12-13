@@ -4,7 +4,7 @@ import numpy as np
 
 # Load the model
 # NOTE: Ensure the model file name matches exactly what you upload to GitHub!
-with open('model.pkl', 'rb') as file:
+with open('PickleDiabetes_', 'rb') as file:
     model = pickle.load(file)
 
 st.title("Diabetes Prediction App (Logistic Regression)")
