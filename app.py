@@ -21,7 +21,18 @@ if st.button("Predict Result"):
     input_data = np.array([[age, mass, insu, plas]])
     prediction = model.predict(input_data)
     
-    if prediction[0] == 1:
+    # ... (Keep the part where you define input_data) ...
+    
+    prediction = model.predict(input_data)
+
+    # 1. Convert the result to a decimal number (float) to stop the TypeError
+    result = float(prediction[0])
+    
+    # 2. Display the raw value (Optional, but good for checking)
+    st.write(f"Prediction Value: {result}")
+
+    # 3. Your requested logic: > 0.5 is Positive, < 0.5 is Negative
+    if result > 0.5:
         st.error("Result: Positive (High chance of Diabetes)")
     else:
         st.success("Result: Negative (Low chance of Diabetes)")
