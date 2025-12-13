@@ -21,7 +21,7 @@ if st.button("Predict Result"):
     input_data = np.array([[age, mass, insu, plas]])
     prediction = model.predict(input_data)
     
-    if prediction[0] == 1:
+    if prediction[0] >= 0.5:
         st.error("Result: Positive (High chance of Diabetes)")
     else:
         st.success("Result: Negative (Low chance of Diabetes)")
